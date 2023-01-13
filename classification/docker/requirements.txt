@@ -1,0 +1,5 @@
+pymongo[srv]
+matplotlib
+sklearn
+pandas
+openslide-python
