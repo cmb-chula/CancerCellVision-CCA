@@ -99,6 +99,7 @@ print("Best thresh = {:.2f}, prec = {:.2f}, rec = {:.2f}, F1 = {:.2f}".format(ma
 # print("AUC = {:.2f}".format(100 * roc_auc_score(y_true, np.array([predictions[i]['pred_conf'] for i in predictions], dtype = np.float32), multi_class = 'ovr')))
 print("AUC = {:.2f}".format(100 * roc_auc_score(y_true_binary, 1 - y_pred_raw[:, 0])))
 
+print("{:.2f} {:.2f} {:.2f} {:.2f}".format(100*max_prec, 100*max_rec, 100*max_f1, 100 * roc_auc_score(y_true_binary, 1 - y_pred_raw[:, 0])))
 
 y_pred_argmax =  np.argmax(y_pred_raw, axis = 1)
 print("accuracy = {:.2f}".format(100 * accuracy_score(y_true, y_pred_argmax)))

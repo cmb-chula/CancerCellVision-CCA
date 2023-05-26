@@ -4,7 +4,6 @@ from .base_loader import BaseLoader
 from sklearn.utils import shuffle
 import numpy as np
 import scipy
-from scipy.stats import median_absolute_deviation
 import pickle
 from scipy.ndimage import rotate
 import torchvision.transforms as T
@@ -20,6 +19,9 @@ from PIL import Image
 class CTCLoader(Dataset):
     def __init__(self, data_path, cfg, flag = 'train'):
         self.data_path = data_path
+        self.flag = flag
+        self.cfg = cfg
+
         self.train_transforms = A.Compose([
             
             A.HorizontalFlip(p = 0.5),
@@ -30,16 +32,14 @@ class CTCLoader(Dataset):
             A.RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0),
             # A.RandomGamma(),
             # A.Normalize((14.36845, 14.36845, 14.36845, 0.6833783, 2.8144684, 1.9409757), (3.7082622, 3.7082622, 3.7082622, 1.3245853, 3.2033563, 3.1374023)),
-            A.Resize(128, 128)
+            A.Resize(self.cfg.img_size[0], self.cfg.img_size[1])
         ])
         self.val_transforms = A.Compose([
             # A.Normalize((14.36845, 14.36845, 14.36845, 0.6833783, 2.8144684, 1.9409757), (3.7082622, 3.7082622, 3.7082622, 1.3245853, 3.2033563, 3.1374023)),
-            A.Resize(128, 128)
+            A.Resize(self.cfg.img_size[0], self.cfg.img_size[1])
         ])
 
 
-        self.flag = flag
-        self.cfg = cfg
 
     def __len__(self):
         return len(self.data_path)

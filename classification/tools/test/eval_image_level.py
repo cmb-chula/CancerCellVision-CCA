@@ -292,5 +292,5 @@ for class_index, class_name in enumerate(gt_classes):
 
 # output_file.write("\n# mAP of all classes\n")
 mAP = sum_AP / n_classes
-text = "mAP = {0:.2f}%".format(mAP*100)
+text = "mAP = {0:.2f}".format(mAP*100)
 print(text)

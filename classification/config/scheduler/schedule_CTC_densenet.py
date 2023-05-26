@@ -10,8 +10,7 @@ multiplier = 1
 NUM_ITERATION = 18000 
 STEP = [10000 , 14000]
 val_freq = 1000
-# initial_lr = 1e-4#2e-4
-initial_lr = 1e-4#2e-4
+initial_lr = 1e-4
 
 warmup_step = 1000 * multiplier
 

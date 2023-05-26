@@ -60,6 +60,7 @@ from tqdm import tqdm
 pbar = tqdm()
 
 cls_prediction_dict = {}
+raw_confidence_dict = {}
 for test_data in test_loader:
     X_test, Y_test, idx = test_data
     X_test = X_test.cuda()
@@ -86,7 +87,7 @@ for test_data in test_loader:
             y_pred = np.array(res, dtype = np.float32)
         file_list = [i.split('/')[-1].split('.')[0] for i in idx]
 
-        pred = list(y_pred[:, 0])
+        pred = list(y_pred)
 
         for i, j in zip(file_list, pred):
             cls_prediction_dict[i] = j
@@ -97,7 +98,8 @@ pbar.close()
 
 #override detection confidence with classfier's confidence
 for cell_name in base_pkl['raw'].keys():
-    base_pkl['raw'][cell_name][-1] = (1 - cls_weight) * base_pkl['raw'][cell_name][-1] + (cls_weight) * cls_prediction_dict[cell_name]
+    if(base_pkl['raw'][cell_name][-1]  < 0.1):continue
+    base_pkl['raw'][cell_name][-1] = (1 - cls_weight) * base_pkl['raw'][cell_name][-1] + (cls_weight) * cls_prediction_dict[cell_name][0]
 
 #reformat prediction metadata
 for key in base_pkl.keys():
@@ -110,4 +112,5 @@ for cell_id in base_pkl['raw'].keys():
 
 #create pickle for newly processed data
 pickle.dump(base_pkl, open(args["output_path"], 'wb'))
+pickle.dump(cls_prediction_dict, open('CTC_result/raw_conf.pkl', 'wb'))
 
