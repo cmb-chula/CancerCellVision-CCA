@@ -2,7 +2,7 @@
 import copy
 import warnings
 
-from mmcv import ConfigDict
+from mmengine.config import ConfigDict
 
 
 def compat_cfg(cfg):
@@ -30,7 +30,6 @@ def compat_runner_args(cfg):
             'please set `runner` in your config.', UserWarning)
     else:
         if 'total_epochs' in cfg:
-            print(cfg.total_epochs, cfg.runner.max_epochs)
             assert cfg.total_epochs == cfg.runner.max_epochs
     return cfg
 
