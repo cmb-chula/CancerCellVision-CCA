@@ -46,7 +46,7 @@ Training and inference scripts of other models and datasets could be found in `s
 
 The code below shows how to train the detector under Brightfield setting:
 ```
-python tools/train.py  configs/CTC/CTC_brightfield.py --seed 40 --work-dir checkpoints/CTC_brightfield_0
+python tools/train.py  configs/CTC/CTC_brightfield.py  --work-dir checkpoints/CTC_brightfield_0
 ```
 
 `CTC_brightfield.py` could be replaced to `CTC_brightfield_b.py` and `CTC_brightfield_fl.py` to reproduce the result in Brightfield + Hoechst and Brightfield + Fluorescence setting, respectively.
@@ -54,6 +54,6 @@ python tools/train.py  configs/CTC/CTC_brightfield.py --seed 40 --work-dir check
 ## Inference
 The code below shows how to perform an inference from the trained detector on the test set under the Brightfield setting:
 ```
-python tools/test.py  configs/CTC/CTC_brightfield.py checkpoints/CTC_brightfield_0/epoch_8.pth --out CTC_result/CTC_brightfield.pkl
+python tools/test.py  configs/CTC/CTC_brightfield.py checkpoints/CTC_brightfield_0/epoch_32.pth --out CTC_result/CTC_brightfield.pkl
 ```
 The `--out` argument indicates the prediction output path. Similarly to the training command, the config `CTC_brightfield.py` could also be replaced to `CTC_brightfield_b.py` and `CTC_brightfield_fl.py`.
